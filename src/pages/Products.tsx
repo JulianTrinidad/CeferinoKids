@@ -170,7 +170,7 @@ export default function Products() {
         <div>
           <h1 className="text-3xl font-bold text-foreground">Gestión de Productos</h1>
           <p className="text-muted-foreground">
-            Administra tu catálogo de productos StyleStock
+            Administra tu catálogo de productos Ceferino Kids
           </p>
         </div>
         <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>

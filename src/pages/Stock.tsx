@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Textarea } from "@/components/ui/textarea"
 import {
   Table,
   TableBody,
@@ -129,6 +130,8 @@ export default function Stock() {
   const [stockFilter, setStockFilter] = useState("all")
   const [isAddStockDialogOpen, setIsAddStockDialogOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState<any>(null)
+    const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+  
 
   const getStatusBadge = (product: any) => {
     if (product.quantity === 0) {
@@ -182,6 +185,126 @@ export default function Stock() {
   return (
     <div className="space-y-6">
       {/* Page Header */}
+              <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+          <DialogTrigger asChild>
+            <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+              <Plus className="w-4 h-4 mr-2" />
+              Nuevo Producto
+            </Button>
+          </DialogTrigger>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>Crear Nuevo Producto</DialogTitle>
+              <DialogDescription>
+                Añade un nuevo producto a tu inventario
+              </DialogDescription>
+            </DialogHeader>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="code">Código del Producto</Label>
+                <Input id="code" placeholder="Ej: CAM001" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="name">Nombre del Producto</Label>
+                <Input id="name" placeholder="Ej: Camiseta Basic" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="category">Categoría</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona categoría" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {categories.map(category => (
+                      <SelectItem key={category} value={category}>{category}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="size">Talla</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona talla" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {sizes.map(size => (
+                      <SelectItem key={size} value={size}>{size}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="color">Color</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona color" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {colors.map(color => (
+                      <SelectItem key={color} value={color}>{color}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="age">Grupo de Edad</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona edad" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {ageGroups.map(age => (
+                      <SelectItem key={age} value={age}>{age}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="season">Temporada</Label>
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selecciona temporada" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {seasons.map(season => (
+                      <SelectItem key={season} value={season}>{season}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="quantity">Cantidad Inicial</Label>
+                <Input id="quantity" type="number" placeholder="0" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="cost">Precio de Costo</Label>
+                <Input id="cost" type="number" step="0.01" placeholder="0.00" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="price">Precio de Venta</Label>
+                <Input id="price" type="number" step="0.01" placeholder="0.00" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lowStock">Stock Mínimo</Label>
+                <Input id="lowStock" type="number" placeholder="10" />
+              </div>
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="description">Descripción</Label>
+                <Textarea id="description" placeholder="Descripción del producto..." />
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
+                Cancelar
+              </Button>
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">
+                Crear Producto
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+
       <div>
         <h1 className="text-3xl font-bold text-foreground">Gestión de Stock</h1>
         <p className="text-muted-foreground">
